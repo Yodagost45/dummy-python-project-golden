@@ -1,0 +1,46 @@
+"""Tests for extract_airports from london_airport_flights.py."""
+
+import pytest
+
+from london_airport_flights import extract_airports
+
+
+def test_extract_airports_returns_data_list():
+    response = {"data": [{"airport_name": "Heathrow"}, {"airport_name": "Gatwick"}]}
+    assert extract_airports(response) == [{"airport_name": "Heathrow"}, {"airport_name": "Gatwick"}]
+
+
+def test_extract_airports_empty_data():
+    response = {"data": []}
+    assert extract_airports(response) == []
+
+
+def test_extract_airports_missing_data_key_returns_empty_list():
+    response = {}
+    assert extract_airports(response) == []
+
+
+def test_extract_airports_ignores_other_top_level_keys():
+    response = {"data": [{"airport_name": "Heathrow"}], "pagination": {"total": 1}}
+    assert extract_airports(response) == [{"airport_name": "Heathrow"}]
+
+
+def test_extract_airports_single_airport():
+    response = {"data": [{"airport_name": "London City", "iata_code": "LCY"}]}
+    assert extract_airports(response) == [{"airport_name": "London City", "iata_code": "LCY"}]
+
+
+def test_extract_airports_returns_list_type():
+    assert isinstance(extract_airports({"data": []}), list)
+
+
+def test_extract_airports_many_airports():
+    airports = [{"airport_name": f"Airport {i}"} for i in range(50)]
+    assert extract_airports({"data": airports}) == airports
+
+
+def test_extract_airports_data_none_returns_none():
+    # Key exists but value is None — .get() returns None, not the default []
+    # Callers iterating the result would then raise TypeError; this documents the bug.
+    result = extract_airports({"data": None})
+    assert result is None
