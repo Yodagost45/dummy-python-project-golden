@@ -1,6 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - flight_date param is tested with a fixed date but never varied — no test confirms
-#   a different date is forwarded rather than a hardcoded constant
+# Function is comprehensively tested
 """Tests for fetch_flights_from_airport from london_airport_flights.py."""
 
 from unittest.mock import patch
@@ -64,3 +62,12 @@ def test_fetch_flights_from_airport_uses_provided_iata():
 
     params = mock_req.call_args[0][1]
     assert params["dep_iata"] == "LCY"
+
+
+# A different flight_date is forwarded correctly — confirms no hardcoded date
+def test_fetch_flights_from_airport_uses_provided_flight_date():
+    with patch("london_airport_flights.make_get_request", return_value={}) as mock_req:
+        fetch_flights_from_airport("mykey", "LHR", "2026-12-25")
+
+    params = mock_req.call_args[0][1]
+    assert params["flight_date"] == "2026-12-25"

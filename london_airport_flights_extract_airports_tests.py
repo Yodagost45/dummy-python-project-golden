@@ -1,6 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - "data" key present with value None: .get() returns None (not []), which would crash
-#   callers that iterate the result — this edge case is untested
+# Function is comprehensively tested
 """Tests for extract_airports from london_airport_flights.py."""
 
 from london_airport_flights import extract_airports
@@ -39,3 +37,9 @@ def test_extract_airports_many_airports():
     airports = [{"airport_name": f"Airport {i}"} for i in range(50)]
     response = {"data": airports}
     assert extract_airports(response) == airports
+
+
+# "data" key present but value is None: .get() returns None (not the default [])
+def test_extract_airports_data_is_none_returns_none():
+    response = {"data": None}
+    assert extract_airports(response) is None

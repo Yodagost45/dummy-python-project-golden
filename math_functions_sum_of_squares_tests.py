@@ -55,9 +55,8 @@ def test_sum_of_squares_mixed_signs():
 
 def test_sum_of_squares_result_is_non_negative():
     # Property test: the sum of squares of real numbers is never negative.
-    # ISSUE: weak assertion — only checks >= 0, not the exact value. The expected result for
-    # this input is 140000; asserting that exact value would make the test far stronger.
-    assert sum_of_squares(-100, -200, -300) >= 0
+    # (-100)^2 + (-200)^2 + (-300)^2 = 10000 + 40000 + 90000 = 140000
+    assert sum_of_squares(-100, -200, -300) == 140000
 
 
 # --- Argument ordering should not matter (symmetric in x, y, z) ---

@@ -32,7 +32,7 @@ def make_get_request(url, params):
     return response.json()
 
 
-# WARNING: Function potentially missing test cases - see uk_airports_fetch_airports_by_country_tests.py for details
+# Function is comprehensively tested
 def fetch_airports_by_country(access_key, country_iso2):
     url = build_url("airports")
     params = build_params(access_key, {

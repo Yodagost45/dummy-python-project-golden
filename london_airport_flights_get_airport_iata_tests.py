@@ -1,6 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - "iata_code" key present with value None: .get() returns None (not ""), which differs
-#   from the missing-key case and creates a subtle type ambiguity — untested
+# Function is comprehensively tested
 """Tests for get_airport_iata from london_airport_flights.py."""
 
 from london_airport_flights import get_airport_iata
@@ -34,3 +32,9 @@ def test_get_airport_iata_returns_string():
 def test_get_airport_iata_three_letter_code():
     airport = {"iata_code": "STN"}
     assert get_airport_iata(airport) == "STN"
+
+
+# "iata_code" key present but value is None: .get() returns None (not the default "")
+def test_get_airport_iata_none_iata_code_returns_none():
+    airport = {"iata_code": None}
+    assert get_airport_iata(airport) is None

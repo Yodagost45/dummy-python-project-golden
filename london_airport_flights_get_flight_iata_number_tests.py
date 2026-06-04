@@ -1,9 +1,7 @@
-# WARNING: Function potentially missing test cases
-# - iata present as empty string "": function returns "" (falsy but not None) — untested;
-#   collect_flight_per_airport's `if flight_number:` skips it, but the passthrough is undocumented
-# - "flight" key present with value None: None.get() raises AttributeError — untested;
-#   this is a real crash scenario if the API returns malformed data
+# Function is comprehensively tested
 """Tests for get_flight_iata_number from london_airport_flights.py."""
+
+import pytest
 
 from london_airport_flights import get_flight_iata_number
 
@@ -46,3 +44,16 @@ def test_get_flight_iata_number_returns_string_value():
     flight = {"flight": {"iata": "TK001"}}
     result = get_flight_iata_number(flight)
     assert isinstance(result, str)
+
+
+# iata is an empty string: returned as "" (falsy, but distinct from None)
+def test_get_flight_iata_number_empty_string_iata_returns_empty_string():
+    flight = {"flight": {"iata": ""}}
+    assert get_flight_iata_number(flight) == ""
+
+
+# "flight" key present but value is None: chained .get() on None raises AttributeError
+def test_get_flight_iata_number_flight_value_is_none_raises_attribute_error():
+    flight = {"flight": None}
+    with pytest.raises(AttributeError):
+        get_flight_iata_number(flight)

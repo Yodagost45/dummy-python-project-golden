@@ -1,5 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - Empty search term ("") is forwarded without validation — no test documents this behaviour
+# Function is comprehensively tested
 """Tests for fetch_airports_by_search from london_airport_flights.py."""
 
 from unittest.mock import patch
@@ -54,3 +53,12 @@ def test_fetch_airports_by_search_uses_provided_search_term():
 
     params = mock_req.call_args[0][1]
     assert params["search"] == "Manchester"
+
+
+# An empty search term is forwarded to the API without validation — no guard in the function
+def test_fetch_airports_by_search_empty_search_term_forwarded():
+    with patch("london_airport_flights.make_get_request", return_value={}) as mock_req:
+        fetch_airports_by_search("mykey", "")
+
+    params = mock_req.call_args[0][1]
+    assert params["search"] == ""

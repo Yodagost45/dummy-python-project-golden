@@ -1,9 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - "data" key present with value None: `if None` is False so the function returns None
-#   safely, but this distinct edge case (key present vs key absent) is untested
-# - test_extract_first_flight_missing_data_key_returns_none ({}) and
-#   test_extract_first_flight_none_on_no_data_key ({"other":…}) cover the same branch
-#   with minimal variation — minor redundancy
+# Function is comprehensively tested
 """Tests for extract_first_flight from london_airport_flights.py."""
 
 from london_airport_flights import extract_first_flight
@@ -44,3 +39,9 @@ def test_extract_first_flight_returns_dict():
 def test_extract_first_flight_none_on_no_data_key():
     # .get() returns [] by default, so [0] is safe — returns None
     assert extract_first_flight({"other": "stuff"}) is None
+
+
+# "data" key present but value is None: `if None` is falsy so None is returned safely
+def test_extract_first_flight_data_is_none_returns_none():
+    response = {"data": None}
+    assert extract_first_flight(response) is None

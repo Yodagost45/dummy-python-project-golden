@@ -1,8 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - flight_number == "" (empty string): `if flight_number:` is falsy so the airport is
-#   correctly skipped, but this distinct case is untested
-# - Two airports with the same name: the second silently overwrites the first in the result
-#   dict — this data-loss behaviour is undocumented and untested
+# Function is comprehensively tested
 """Tests for collect_flight_per_airport from london_airport_flights.py."""
 
 from unittest.mock import patch, call
@@ -102,3 +98,29 @@ def test_collect_flight_per_airport_mixed_valid_and_no_flight():
 
     assert "Heathrow" in result
     assert "Gatwick" not in result
+
+
+# An empty-string flight number is falsy so the airport is skipped (same path as None)
+def test_collect_flight_per_airport_skips_when_flight_number_is_empty_string():
+    airports = [_airport("Heathrow", "LHR")]
+
+    with patch("london_airport_flights.get_flight_number_for_airport", return_value=""):
+        result = collect_flight_per_airport("mykey", airports, "2026-06-01")
+
+    assert result == {}
+
+
+# When two airports share a name, the second entry silently overwrites the first
+def test_collect_flight_per_airport_duplicate_name_second_overwrites_first():
+    airports = [
+        _airport("Heathrow", "LHR"),
+        _airport("Heathrow", "LHR2"),
+    ]
+
+    def mock_fn(key, iata, date):
+        return "BA100" if iata == "LHR" else "BA200"
+
+    with patch("london_airport_flights.get_flight_number_for_airport", side_effect=mock_fn):
+        result = collect_flight_per_airport("mykey", airports, "2026-06-01")
+
+    assert result == {"Heathrow": "BA200"}

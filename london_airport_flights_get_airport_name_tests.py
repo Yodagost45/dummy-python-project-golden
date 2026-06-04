@@ -1,6 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - "airport_name" key present with value None: .get() returns None (not ""), which in
-#   collect_flight_per_airport would create a result dict entry keyed on None — untested
+# Function is comprehensively tested
 """Tests for get_airport_name from london_airport_flights.py."""
 
 from london_airport_flights import get_airport_name
@@ -34,3 +32,9 @@ def test_get_airport_name_returns_string():
 def test_get_airport_name_name_with_parentheses():
     airport = {"airport_name": "Belfast City (George Best) Airport"}
     assert get_airport_name(airport) == "Belfast City (George Best) Airport"
+
+
+# "airport_name" key present but value is None: .get() returns None (not the default "")
+def test_get_airport_name_none_airport_name_returns_none():
+    airport = {"airport_name": None}
+    assert get_airport_name(airport) is None

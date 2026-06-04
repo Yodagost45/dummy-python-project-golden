@@ -1,6 +1,4 @@
-# WARNING: Function potentially missing test cases
-# - get_flight_iata_number can return "" (empty string); the function passes it through
-#   unchanged — no test documents this, or that collect_flight_per_airport handles it correctly
+# Function is comprehensively tested
 """Tests for get_flight_number_for_airport from london_airport_flights.py."""
 
 from unittest.mock import patch
@@ -66,3 +64,15 @@ def test_get_flight_number_for_airport_returns_none_when_iata_missing():
         result = get_flight_number_for_airport("mykey", "LHR", "2026-06-01")
 
     assert result is None
+
+
+# When get_flight_iata_number returns "" the function passes it through unchanged
+def test_get_flight_number_for_airport_returns_empty_string_when_iata_is_empty():
+    fake_flight = {"flight": {"iata": ""}}
+
+    with patch("london_airport_flights.fetch_flights_from_airport", return_value={}), \
+         patch("london_airport_flights.extract_first_flight", return_value=fake_flight), \
+         patch("london_airport_flights.get_flight_iata_number", return_value=""):
+        result = get_flight_number_for_airport("mykey", "LHR", "2026-06-01")
+
+    assert result == ""

@@ -33,7 +33,7 @@ def make_get_request(url, params):
     return response.json()
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_fetch_airports_by_search_tests.py for details
+# Function is comprehensively tested
 def fetch_airports_by_search(access_key, search_term):
     url = build_url("airports")
     params = build_params(access_key, {
@@ -43,22 +43,22 @@ def fetch_airports_by_search(access_key, search_term):
     return make_get_request(url, params)
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_extract_airports_tests.py for details
+# Function is comprehensively tested
 def extract_airports(response_data):
     return response_data.get("data", [])
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_get_airport_iata_tests.py for details
+# Function is comprehensively tested
 def get_airport_iata(airport):
     return airport.get("iata_code", "")
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_get_airport_name_tests.py for details
+# Function is comprehensively tested
 def get_airport_name(airport):
     return airport.get("airport_name", "")
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_fetch_flights_from_airport_tests.py for details
+# Function is comprehensively tested
 def fetch_flights_from_airport(access_key, iata_code, flight_date):
     url = build_url("flights")
     params = build_params(access_key, {
@@ -69,18 +69,18 @@ def fetch_flights_from_airport(access_key, iata_code, flight_date):
     return make_get_request(url, params)
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_extract_first_flight_tests.py for details
+# Function is comprehensively tested
 def extract_first_flight(response_data):
     flights = response_data.get("data", [])
     return flights[0] if flights else None
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_get_flight_iata_number_tests.py for details
+# Function is comprehensively tested
 def get_flight_iata_number(flight):
     return flight.get("flight", {}).get("iata", None)
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_get_flight_number_for_airport_tests.py for details
+# Function is comprehensively tested
 def get_flight_number_for_airport(access_key, iata_code, flight_date):
     raw = fetch_flights_from_airport(access_key, iata_code, flight_date)
     flight = extract_first_flight(raw)
@@ -89,7 +89,7 @@ def get_flight_number_for_airport(access_key, iata_code, flight_date):
     return get_flight_iata_number(flight)
 
 
-# WARNING: Function potentially missing test cases - see london_airport_flights_collect_flight_per_airport_tests.py for details
+# Function is comprehensively tested
 def collect_flight_per_airport(access_key, airports, flight_date):
     result = {}
     for airport in airports:
