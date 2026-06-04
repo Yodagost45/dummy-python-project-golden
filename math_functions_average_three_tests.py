@@ -1,3 +1,4 @@
+# Function is comprehensively tested
 """Tests for average_three from math_functions.py."""
 
 import pytest

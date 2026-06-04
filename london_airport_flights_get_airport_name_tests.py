@@ -1,3 +1,6 @@
+# WARNING: Function potentially missing test cases
+# - "airport_name" key present with value None: .get() returns None (not ""), which in
+#   collect_flight_per_airport would create a result dict entry keyed on None — untested
 """Tests for get_airport_name from london_airport_flights.py."""
 
 from london_airport_flights import get_airport_name

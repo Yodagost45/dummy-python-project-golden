@@ -1,3 +1,5 @@
+# WARNING: Function potentially missing test cases
+# - Empty search term ("") is forwarded without validation — no test documents this behaviour
 """Tests for fetch_airports_by_search from london_airport_flights.py."""
 
 from unittest.mock import patch

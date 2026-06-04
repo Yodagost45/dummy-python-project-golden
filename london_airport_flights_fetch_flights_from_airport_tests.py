@@ -1,3 +1,6 @@
+# WARNING: Function potentially missing test cases
+# - flight_date param is tested with a fixed date but never varied — no test confirms
+#   a different date is forwarded rather than a hardcoded constant
 """Tests for fetch_flights_from_airport from london_airport_flights.py."""
 
 from unittest.mock import patch

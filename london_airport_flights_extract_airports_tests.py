@@ -1,3 +1,6 @@
+# WARNING: Function potentially missing test cases
+# - "data" key present with value None: .get() returns None (not []), which would crash
+#   callers that iterate the result — this edge case is untested
 """Tests for extract_airports from london_airport_flights.py."""
 
 from london_airport_flights import extract_airports

@@ -1,3 +1,4 @@
+# Function is comprehensively tested
 """Tests for make_get_request from london_airport_flights.py."""
 
 import pytest

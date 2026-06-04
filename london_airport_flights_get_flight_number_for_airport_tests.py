@@ -1,3 +1,6 @@
+# WARNING: Function potentially missing test cases
+# - get_flight_iata_number can return "" (empty string); the function passes it through
+#   unchanged — no test documents this, or that collect_flight_per_airport handles it correctly
 """Tests for get_flight_number_for_airport from london_airport_flights.py."""
 
 from unittest.mock import patch

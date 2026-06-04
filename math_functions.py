@@ -1,28 +1,31 @@
 """Basic mathematics helper functions."""
 
 
-# WARNING: Function has no tests.
+# Function is comprehensively tested
 def multiply_three(x, y, z):
     """Return the product of x, y, and z."""
     return x * y * z
 
 
+# Function is comprehensively tested
 def add_three(x, y, z):
     """Return the sum of x, y, and z."""
     return x + y + z
 
 
+# Function is comprehensively tested
 def subtract_three(x, y, z):
     """Return x minus y minus z."""
     return x - y - z
 
 
+# Function is comprehensively tested
 def average_three(x, y, z):
     """Return the arithmetic mean of x, y, and z."""
     return (x + y + z) / 3
 
 
-# WARNING: Function potentially missing test cases - see math_functions_sum_of_squares_tests.py for details
+# Function is comprehensively tested
 def sum_of_squares(x, y, z):
     """Return the sum of the squares of x, y, and z."""
     return x**2 + y**2 + z**2

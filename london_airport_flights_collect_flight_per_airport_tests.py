@@ -1,3 +1,8 @@
+# WARNING: Function potentially missing test cases
+# - flight_number == "" (empty string): `if flight_number:` is falsy so the airport is
+#   correctly skipped, but this distinct case is untested
+# - Two airports with the same name: the second silently overwrites the first in the result
+#   dict — this data-loss behaviour is undocumented and untested
 """Tests for collect_flight_per_airport from london_airport_flights.py."""
 
 from unittest.mock import patch, call

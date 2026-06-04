@@ -1,3 +1,4 @@
+# Function is comprehensively tested
 """Tests for start from london_airport_flights.py."""
 
 from unittest.mock import patch

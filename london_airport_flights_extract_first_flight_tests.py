@@ -1,3 +1,9 @@
+# WARNING: Function potentially missing test cases
+# - "data" key present with value None: `if None` is False so the function returns None
+#   safely, but this distinct edge case (key present vs key absent) is untested
+# - test_extract_first_flight_missing_data_key_returns_none ({}) and
+#   test_extract_first_flight_none_on_no_data_key ({"other":…}) cover the same branch
+#   with minimal variation — minor redundancy
 """Tests for extract_first_flight from london_airport_flights.py."""
 
 from london_airport_flights import extract_first_flight
